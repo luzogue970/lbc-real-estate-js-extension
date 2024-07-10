@@ -23,5 +23,4 @@ const restoreOptions = () => {
 };
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
-// document.getElementById('maxPrice').addEventListener('change', saveOptions);
 document.getElementById('save').addEventListener('click', saveOptions);

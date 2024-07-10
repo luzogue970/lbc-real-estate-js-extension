@@ -20,7 +20,6 @@ function afterDOMLoaded() {
 }
 
 function hideExpensiveApartments() {
-    console.log("maxPrice : " + maxPrice)
     let apartmentsCount = 0;
     const apartments = document.getElementsByClassName("styles_adCard__JzKik");
     for (let apartment of apartments) {
@@ -37,7 +36,6 @@ function hideExpensiveApartments() {
             apartment.style.display = 'none';
         }
     }
-    console.log("Total expensive apartments hidden: " + apartmentsCount);
 }
 
 function observeDOMChanges() {
@@ -77,7 +75,6 @@ function updateMaxPrice() {
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.message === 'hello!') {
-            console.log("Changement détecté, appelle fonction:");
             afterDOMLoaded();
         }
     }
