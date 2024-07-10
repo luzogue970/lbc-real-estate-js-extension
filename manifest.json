@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "LeBonCoin Extension",
+  "version": "1.0",
+  "description": "Extension pour permettre au couz de trouver un bien plus facilement sur leboncoin.fr",
+  "permissions": [
+    "tabs",
+    "webNavigation",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Click Me",
+    "default_popup": "popup.html"
+  }
+}
