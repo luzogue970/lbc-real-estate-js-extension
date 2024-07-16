@@ -4,24 +4,27 @@
   "version": "1.0",
   "description": "Extension pour permettre au couz de trouver un bien plus facilement sur leboncoin.fr",
   "permissions": [
-    "tabs",
-    "webNavigation",
     "storage",
-    "scripting"
+    "tabs"
   ],
-  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/js/background.js"
+  },
+  "host_permissions": ["https://*/*"],
   "content_scripts": [
     {
       "matches": [
-        "https://www.leboncoin.fr/*"
+        "https://www.leboncoin.fr/*",
+        "https://www.meilleursagents.com/prix-immobilier/*"
       ],
       "js": [
-        "content.js"
-      ]
+        "src/js/content.js"
+      ],
+      "type": "module"
     }
   ],
   "action": {
     "default_title": "Click Me",
-    "default_popup": "popup.html"
+    "default_popup": "src/html/popup.html"
   }
 }
