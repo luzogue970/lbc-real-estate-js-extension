@@ -2,7 +2,6 @@ let maxPrice;
 let debounceTimeout;
 
 console.log("extension leBoncoin loaded");
-
 function updateMaxPrice() {
     return new Promise((resolve, reject) => {
         chrome.storage.sync.get('maxPrice', function (response) {
@@ -114,8 +113,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'immo_found') {
         console.log("immo found");
         getImmoInfo().then((immoData) => {
-        let bestAgentLink = "https://www.meilleursagents.com/prix-immobilier/" + immoData;
-            window.open(bestAgentLink, '_blank');
+            let bestAgentLink = "https://www.meilleursagents.com/prix-immobilier/" + immoData;
+            chrome.storage.sync.set(
+                { currentLink: bestAgentLink }
+            );
         });
     }
 });

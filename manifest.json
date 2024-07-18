@@ -5,7 +5,8 @@
   "description": "Extension pour permettre au couz de trouver un bien plus facilement sur leboncoin.fr",
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "activeTab"
   ],
   "background": {
     "service_worker": "src/js/background.js"

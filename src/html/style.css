@@ -6,14 +6,57 @@ body {
     flex-direction: column;
     padding: 10px;
     width: 300px;
-
+    align-items: center;
 }
 .price-editor{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    background-color: grey;
+    border-radius: 0 15px 15px 0;
+    text-align: center;
+    margin: 15px;
 }
 .price-editor p {
     margin-right: 10px;
+    padding-left: 3px;
+    text-align: center;
+    color: white;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#maxPrice {
+    border-radius: 0 15px 15px 0;
+    border: none;
+    font-size: 1.5rem;
+    background-color: #EC5A12;
+    padding: 5px;
+    color: white;
+    width: 100px;
+    outline: none;
+}
+button, a {
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 15px;
+    background-color: #EC5A12;
+    color: white;
+    transition: ease-in 0.1s;
+    text-decoration: none;
+    font-size: 1rem;
+}
+button:hover, a:hover {
+    background-color: rgba(236, 90, 18, 0.75);
 }
