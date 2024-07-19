@@ -1,11 +1,21 @@
-chrome.tabs.onUpdated.addListener(
-    function(tabId, changeInfo, tab) {
-        if (changeInfo.url && changeInfo.url.startsWith('https://www.leboncoin.fr/ad/ventes_immobilieres/')) {
-            chrome.tabs.sendMessage(tabId, {
-                message: 'immo_found',
-                url: changeInfo.url
-            })
-        }
-    }
-);
 
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === 'complete' && tab.url  && !tab.url.startsWith('chrome://')) {
+        executeContentScript(tabId);
+    }
+});
+
+chrome.tabs.onActivated.addListener(activeInfo => {
+    chrome.tabs.get(activeInfo.tabId, (tab) => {
+        if (tab.url && !tab.url.startsWith('chrome://')) {
+            executeContentScript(activeInfo.tabId);
+        }
+    });
+});
+
+function executeContentScript(tabId) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ['src/js/button-handler.js']
+    });
+}

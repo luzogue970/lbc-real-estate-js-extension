@@ -18,16 +18,24 @@ const restoreOptions = () => {
         { maxPrice: 0, currentLink: '' },
         (items) => {
             document.getElementById('maxPrice').value = items.maxPrice;
-            if (items.currentLink) {
-                document.getElementById('bestAgentLink').href = items.currentLink;
+            const link = document.getElementById('bestAgentLink');
+            if (items.currentLink !== 'no-link') {
+                link.href = items.currentLink;
             }
+            else {
+                link.disabled = true;
+                link.style.backgroundColor = 'grey'
+                link.style.cursor = 'not-allowed'
+                link.textContent = 'aucun lien disponible X'
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                });            }
         }
     );
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     restoreOptions();
-    console.log("link well saved")
     chrome.storage.onChanged.addListener((changes, namespace) => {
         if (namespace === 'sync' && changes.currentLink) {
             document.getElementById('bestAgentLink').href = changes.currentLink.newValue;
@@ -35,6 +43,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-// document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('save').addEventListener('click', saveOptions);
