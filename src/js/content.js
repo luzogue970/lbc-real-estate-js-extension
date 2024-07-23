@@ -51,22 +51,30 @@ function observeDOMChanges() {
 }
 
 function hideExpensiveApartments() {
-    let apartmentsCount = 0;
     const apartments = document.getElementsByClassName("styles_adCard__JzKik");
     for (let apartment of apartments) {
-        const priceByMeterWrapper = apartment.getElementsByClassName("flex items-center text-caption text-on-background/dim-1 ml-sm text-small")[0];
-        if (!priceByMeterWrapper) continue;
-        const priceByMeter = priceByMeterWrapper.querySelector("p");
-        if (!priceByMeter) continue;
-        const priceWithText = priceByMeter.textContent;
-        let princeWithTextWithoutSpace = priceWithText.replace(/\s+/g, '');
-        let price = princeWithTextWithoutSpace.replace(/\D/g, '');
-        price = parseInt(price);
-        if (price > maxPrice) {
-            apartmentsCount += 1;
-            apartment.style.display = 'none';
+        if (apartment.style.display !== 'none') {
+            const priceByMeterWrapper = apartment.getElementsByClassName("flex items-center text-caption text-on-background/dim-1 ml-sm text-small")[0];
+            if (priceByMeterWrapper === undefined) {
+                makeApartmentInvisible(apartment);
+                continue
+            }
+            if (!priceByMeterWrapper) continue;
+            const priceByMeter = priceByMeterWrapper.querySelector("p");
+            if (!priceByMeter) continue;
+            const priceWithText = priceByMeter.textContent;
+            let princeWithTextWithoutSpace = priceWithText.replace(/\s+/g, '');
+            let price = princeWithTextWithoutSpace.replace(/\D/g, '');
+            price = parseInt(price);
+            if (price > maxPrice) {
+                makeApartmentInvisible(apartment);
+            }
         }
     }
+}
+
+function makeApartmentInvisible(apartment) {
+    apartment.style.display = 'none';
 }
 
 async function main() {
@@ -78,6 +86,4 @@ async function main() {
     }
 }
 
-main().then(r => {
-    console.log("all work")
-});
+main();
